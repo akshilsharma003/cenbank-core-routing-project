@@ -1,0 +1,117 @@
+CENBANK Core Router Configuration Documentation
+Project Overview
+This repository contains the complete configuration for four core-layer routers deployed across four floors of the CENBANK enterprise network. Each router is integrated into a centralized OSPF Area 0 backbone and is secured with SSH access, encrypted credentials, and segmented subnets for optimized routing and security.
+🔁 Common Configuration Features
+• 	Hostname: Core-LayerR
+• 	Password: cisco
+• 	OSPF Area: 0
+• 	SSH Enabled: Yes
+• 	Encrypted Passwords: Yes (Service password-encryption)
+• 	Domain Name: cisco.net
+• 	MOTD Banner: Core-LayerR
+• 	Access Config:
+• 	Console & VTY login with encrypted password
+• 	Transport input restricted to SSH
+
+📍 Floor 1 – Core Router Configuration
+
+interface GigabitEthernet0/0
+
+ ip address 10.10.10.1 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 10.10.10.5 255.255.255.252
+interface GigabitEthernet0/2
+ ip address 10.10.10.9 255.255.255.252
+interface Serial0/2/0
+ ip address 10.10.10.13 255.255.255.252
+interface Serial0/2/1
+ ip address 10.10.10.17 255.255.255.252
+ 
+router ospf 10
+
+ network 10.10.10.0 0.0.0.3 area 0
+ network 10.10.10.4 0.0.0.3 area 0
+ network 10.10.10.8 0.0.0.3 area 0
+ network 10.10.10.12 0.0.0.3 area 0
+ network 10.10.10.16 0.0.0.3 area 0
+
+ 📍 Floor 2 – Core Router Configuration
+
+interface GigabitEthernet0/0
+ ip address 10.10.10.2 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 10.10.10.21 255.255.255.252
+interface GigabitEthernet0/2
+ ip address 10.10.10.25 255.255.255.252
+interface Serial0/2/0
+ ip address 10.10.10.6 255.255.255.252
+interface Serial0/2/1
+ ip address 10.10.10.33 255.255.255.252
+ 
+router ospf 10
+
+ network 10.10.10.2 0.0.0.3 area 0
+ network 10.10.10.20 0.0.0.3 area 0
+ network 10.10.10.24 0.0.0.3 area 0
+ network 10.10.10.32 0.0.0.3 area 0
+ network 10.10.10.4 0.0.0.3 area 0
+
+📍 Floor 3 – Core Router Configuration
+
+interface GigabitEthernet0/0
+ ip address 10.10.10.10 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 10.10.10.41 255.255.255.252
+interface GigabitEthernet0/2
+ ip address 10.10.10.49 255.255.255.252
+interface Serial0/2/0
+ ip address 10.10.10.18 255.255.255.252
+interface Serial0/2/1
+ ip address 10.10.10.29 255.255.255.252
+ 
+router ospf 10
+
+ network 10.10.10.10 0.0.0.3 area 0
+ network 10.10.10.28 0.0.0.3 area 0
+ network 10.10.10.40 0.0.0.3 area 0
+ network 10.10.10.48 0.0.0.3 area 0
+ network 10.10.10.18 0.0.0.3 area 0
+
+ 📍 Floor 4 – Core Router Configuration
+ 
+interface GigabitEthernet0/0
+ ip address 10.10.10.30 255.255.255.252
+interface GigabitEthernet0/1
+ ip address 10.10.10.46 255.255.255.252
+interface GigabitEthernet0/2
+ ip address 10.10.10.54 255.255.255.252
+interface Serial0/2/0
+ ip address 10.10.10.26 255.255.255.252
+interface Serial0/2/1
+ ip address 10.10.10.37 255.255.255.252
+ 
+router ospf 10
+
+ network 10.10.10.24 0.0.0.3 area 0
+ network 10.10.10.28 0.0.0.3 area 0
+ network 10.10.10.36 0.0.0.3 area 0
+ network 10.10.10.52 0.0.0.3 area 0
+ network 10.10.10.44 0.0.0.3 area 0
+
+
+ 🧭 DHCP Pool Configuration Table
+
+| **Pool Name** | **Default Gateway** | **DNS Server** | **Start IP Address** | **Subnet Mask**     | **Max Users** |
+|---------------|---------------------|----------------|----------------------|---------------------|---------------|
+| AD-Pool       | 198.15.1.33         | 198.15.1.98    | 198.15.1.34          | 255.255.255.224     | 30            |
+| GUEST-Pool    | 198.15.1.1          | 198.15.1.98    | 198.15.1.2           | 255.255.255.224     | 30            |
+| LOGI-Pool     | 198.15.0.193        | 198.15.1.98    | 198.15.0.194         | 255.255.255.224     | 30            |
+| FINA-Pool     | 198.15.0.161        | 198.15.1.98    | 198.15.0.162         | 255.255.255.224     | 30            |
+| ACC-Pool      | 198.15.0.129        | 198.15.1.98    | 198.15.0.130         | 255.255.255.224     | 30            |
+| HR-Pool       | 198.15.0.65         | 198.15.1.98    | 198.15.0.66          | 255.255.255.224     | 30            |
+| MARK-Pool     | 198.15.0.97         | 198.15.1.98    | 198.15.0.98          | 255.255.255.224     | 30            |
+| REC-Pool      | 198.15.0.33         | 198.15.1.98    | 198.15.0.34          | 255.255.255.224     | 30            |
+| MGMT-Pool     | 198.15.0.1          | 198.15.1.98    | 198.15.0.2           | 255.255.255.224     | 30            |
+| ICT-Pool      | 198.15.1.65         | 198.15.1.98    | 198.15.1.66          | 255.255.255.224     | 30            |
+| CC-Pool       | 198.15.0.225        | 198.15.1.98    | 198.15.0.226         | 255.255.255.224     | 30            |
+| serverPool    | 0.0.0.0             | 0.0.0.0        | 198.15.1.96          | 255.255.255.224     | 512           |
